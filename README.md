@@ -1,14 +1,12 @@
 # Projet React TypeScript - RankDog
 
-L'application permet de voter pour le plus beau chien sous forme d'un tournois.
+L'application permet de voter pour le plus beau chien sous forme d'un tournoi.
 
 # Prérequis
 
 Pour lancer ce projet en local, vous avez besoin des éléments suivants :
 
     Node.js : Téléchargez et installez Node.js (qui inclut npm).
-
-    Git : Téléchargez et installez Git si ce n'est pas déjà fait.
 
 Étapes d'installation
 

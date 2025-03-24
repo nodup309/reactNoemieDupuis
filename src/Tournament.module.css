@@ -1,0 +1,50 @@
+/* Tournament.module.css */
+.container {
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(45deg, #ff66b2, #ffcc00);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(255, 102, 178, 0.4);
+}
+
+.matchContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.matchImage {
+    width: 150px;
+    border: 5px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+}
+
+.voteButton {
+    margin: 15px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #00ccff, #ff66b2);
+    border: 3px solid #00ccff;
+    border-radius: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 204, 255, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.voteButton:hover {
+    transform: scale(1.1);
+}
+
+.winnerImage {
+    width: 200px;
+    border: 5px solid gold;
+    border-radius: 50%;
+    box-shadow: 0 0 20px gold;
+}

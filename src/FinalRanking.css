@@ -1,0 +1,79 @@
+.finalRankingContainer {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+td img {
+    border-radius: 10px;
+}
+
+td {
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+td:hover {
+    background-color: #f0f0f0;
+}
+
+tr:nth-child(odd) td {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(even) td {
+    background-color: #ffffff;
+}
+
+tr:hover td {
+    background-color: #f1f1f1;
+}
+
+.position {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.position-finalist {
+    color: #ff9900;
+}
+
+.position-semi-finalist {
+    color: #ffcc00;
+}
+
+.position-quarter-finalist {
+    color: #ff6666;
+}
+
+.position-other {
+    color: #aaa;
+}

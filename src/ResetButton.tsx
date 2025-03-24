@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './ResetButton.module.css';
 
 type ResetButtonProps = {
     onReset: () => void;
@@ -6,8 +7,8 @@ type ResetButtonProps = {
 
 const ResetButton: React.FC<ResetButtonProps> = ({ onReset }) => {
     return (
-        <button onClick={onReset} style={{ marginTop: '20px', padding: '10px', fontSize: '16px' }}>
-            Nouveau tournoi
+        <button onClick={onReset} className={styles.button}>
+            🎉 Nouveau Tournoi 🎉
         </button>
     );
 };

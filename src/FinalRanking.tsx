@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dog } from './types/Dog';
+import './FinalRanking.css';
 
 type FinalRankingProps = {
     dogs: Dog[];
@@ -29,7 +30,7 @@ const FinalRanking: React.FC<FinalRankingProps> = ({ dogs, winners }) => {
     const sortedDogs = dogsWithRanks.sort((a, b) => (a.rank || 0) - (b.rank || 0));
 
     return (
-        <div>
+        <div className="finalRankingContainer">
             <h2>Classement Final</h2>
             <table>
                 <thead>
@@ -41,8 +42,10 @@ const FinalRanking: React.FC<FinalRankingProps> = ({ dogs, winners }) => {
                 <tbody>
                 {sortedDogs.map((dog) => (
                     <tr key={dog.id}>
-                        <td><img src={dog.imageUrl} alt={`Dog ${dog.id}`} width={100} /></td>
                         <td>
+                            <img src={dog.imageUrl} alt={`Dog ${dog.id}`} width={100} />
+                        </td>
+                        <td className={`position position-${dog.rank}`}>
                             {dog.rank === 1
                                 ? 'Gagnant'
                                 : dog.rank === 2

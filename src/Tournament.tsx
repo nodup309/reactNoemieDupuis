@@ -3,6 +3,7 @@ import { Dog } from './types/Dog';
 import RoundHeader from './RoundHeader';
 import ResetButton from './ResetButton';
 import FinalRanking from './FinalRanking';
+import styles from './Tournament.module.css';
 
 const Tournament: React.FC = () => {
     const [dogs, setDogs] = useState<Dog[]>([]);
@@ -64,16 +65,17 @@ const Tournament: React.FC = () => {
         }
     };
 
-
     const renderMatchList = () => {
         return (
-            <div>
+            <div className={styles.matchContainer}>
                 <h2>Match {matchIndex + 1}</h2>
                 <div>
                     {currentMatch.length > 0 && currentMatch.map((dog) => (
                         <div key={dog.id}>
-                            <img src={dog.imageUrl} alt={`Dog ${dog.id}`} width={150} />
-                            <button onClick={() => handleVote(dog)}>Voter pour ce chien</button>
+                            <img className={styles.matchImage} src={dog.imageUrl} alt={`Dog ${dog.id}`} />
+                            <button className={styles.voteButton} onClick={() => handleVote(dog)}>
+                                🐶 Voter pour ce chien 🐶
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -82,19 +84,19 @@ const Tournament: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className={styles.container}>
+            <ResetButton onReset={resetTournament} />
             <RoundHeader round={round} />
             {tournamentFinished ? (
                 <div>
-                    <h2>Le tournoi est terminé !</h2>
-                    <h3>Vainqueur :</h3>
-                    {winners.length > 0 && <img src={winners[0]?.imageUrl} alt="Vainqueur" width={200} />}
+                    <h2>🎉 Le tournoi est terminé ! 🎉</h2>
+                    <h3>🏆 Vainqueur :</h3>
+                    {winners.length > 0 && <img className={styles.winnerImage} src={winners[0]?.imageUrl} alt="Vainqueur" />}
                     <FinalRanking dogs={dogs} winners={winners} />
                 </div>
             ) : (
                 renderMatchList()
             )}
-            <ResetButton onReset={resetTournament} />
         </div>
     );
 };
