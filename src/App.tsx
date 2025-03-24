@@ -1,13 +1,12 @@
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import TierList from "./TierList";
+import React from 'react';
+import Tournament from './Tournament';
 
-function App() {
+const App: React.FC = () => {
     return (
-        <DndProvider backend={HTML5Backend}>
-            <TierList />
-        </DndProvider>
+        <div className="App">
+            <Tournament />
+        </div>
     );
-}
+};
 
 export default App;
