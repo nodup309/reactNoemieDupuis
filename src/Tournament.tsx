@@ -3,6 +3,7 @@ import { Dog } from './types/Dog';
 import RoundHeader from './RoundHeader';
 import ResetButton from './ResetButton';
 import FinalRanking from './FinalRanking';
+import Match from './Match'; // Importer Match
 import styles from './Tournament.module.css';
 
 const Tournament: React.FC = () => {
@@ -10,6 +11,7 @@ const Tournament: React.FC = () => {
     const [matches, setMatches] = useState<Dog[][]>([]);
     const [round, setRound] = useState(1);
     const [winners, setWinners] = useState<Dog[]>([]);
+    const [losers, setLosers] = useState<Dog[]>([]);
     const [currentMatch, setCurrentMatch] = useState<Dog[]>([]);
     const [matchIndex, setMatchIndex] = useState(0);
     const [tournamentFinished, setTournamentFinished] = useState(false);
@@ -17,7 +19,11 @@ const Tournament: React.FC = () => {
     const resetTournament = useCallback(async () => {
         const response = await fetch('https://dog.ceo/api/breeds/image/random/16');
         const data = await response.json();
-        const dogs = data.message.map((url: string, index: number) => ({ id: index, name: `Dog ${index + 1}`, imageUrl: url }));
+        const dogs = data.message.map((url: string, index: number) => ({
+            id: index,
+            name: `Dog ${index + 1}`,
+            imageUrl: url
+        }));
         setDogs(dogs);
         const initialMatches = chunkArray(dogs, 2);
         setMatches(initialMatches);
@@ -34,15 +40,26 @@ const Tournament: React.FC = () => {
 
     const chunkArray = (array: Dog[], size: number) => {
         const result: Dog[][] = [];
+        let rankCounter = 1;
+
         for (let i = 0; i < array.length; i += size) {
-            result.push(array.slice(i, i + size));
+            const chunk = array.slice(i, i + size);
+
+            const chunkWithRanks = chunk.map(dog => ({
+                ...dog,
+                rank: rankCounter++
+            }));
+            result.push(chunkWithRanks);
         }
         return result;
     };
 
-    const handleVote = (selectedDog: Dog) => {
-        const updatedWinners = [...winners, { ...selectedDog, rank: winners.length + 1 }];
+    const handleVote = (winner: Dog, loser: Dog, loserRank: number) => {
+        const updatedWinners = [...winners, winner];
+        const updatedLosers = [...losers, { ...loser, rank: loserRank }];
+
         setWinners(updatedWinners);
+        setLosers(updatedLosers);
 
         const nextMatchIndex = matchIndex + 1;
 
@@ -50,12 +67,11 @@ const Tournament: React.FC = () => {
             setCurrentMatch(matches[nextMatchIndex]);
             setMatchIndex(nextMatchIndex);
         } else {
-            const nextRoundDogs = updatedWinners;
-
-            if (nextRoundDogs.length === 1) {
+            if (updatedWinners.length === 1) {
                 setTournamentFinished(true);
+                setDogs([...updatedWinners, ...updatedLosers]);
             } else {
-                const nextRoundMatches = chunkArray(nextRoundDogs, 2);
+                const nextRoundMatches = chunkArray(updatedWinners, 2);
                 setMatches(nextRoundMatches);
                 setRound(round + 1);
                 setWinners([]);
@@ -65,23 +81,6 @@ const Tournament: React.FC = () => {
         }
     };
 
-    const renderMatchList = () => {
-        return (
-            <div className={styles.matchContainer}>
-                <h2>Match {matchIndex + 1}</h2>
-                <div>
-                    {currentMatch.length > 0 && currentMatch.map((dog) => (
-                        <div key={dog.id}>
-                            <img className={styles.matchImage} src={dog.imageUrl} alt={`Dog ${dog.id}`} />
-                            <button className={styles.voteButton} onClick={() => handleVote(dog)}>
-                                🐶 Voter pour ce chien 🐶
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
-    };
 
     return (
         <div className={styles.container}>
@@ -92,10 +91,15 @@ const Tournament: React.FC = () => {
                     <h2>🎉 Le tournoi est terminé ! 🎉</h2>
                     <h3>🏆 Vainqueur :</h3>
                     {winners.length > 0 && <img className={styles.winnerImage} src={winners[0]?.imageUrl} alt="Vainqueur" />}
-                    <FinalRanking dogs={dogs} winners={winners} />
+                    <FinalRanking dogs={dogs} />
                 </div>
             ) : (
-                renderMatchList()
+                <Match
+                    matchIndex={matchIndex}
+                    currentMatch={currentMatch}
+                    round={round}
+                    handleVote={handleVote}
+                />
             )}
         </div>
     );

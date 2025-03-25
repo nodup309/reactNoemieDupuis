@@ -1,0 +1,25 @@
+.voteButton {
+    margin: 15px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #00ccff, #ff66b2);
+    border: 3px solid #00ccff;
+    border-radius: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 204, 255, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.voteButton:hover {
+    transform: scale(1.1);
+}
+
+.matchImage {
+    width: 150px;
+    border: 5px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+}
